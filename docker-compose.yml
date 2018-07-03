@@ -1,0 +1,19 @@
+version: "3"
+services:
+  app:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    image: adnanrahic/express-docker-app
+    deploy:
+      mode: replicated
+      replicas: 6
+      labels: [APP=APP]
+      update_config:
+        parallelism: 1
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+    ports:
+      - "80:3000"
