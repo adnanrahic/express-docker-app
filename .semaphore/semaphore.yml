@@ -15,7 +15,7 @@ blocks:
       - name: Docker build
         commands:
           - checkout
-          - ls -1
+          - ls
           - echo $APP_ENV
           - echo "Docker build..."
           - echo "done"
