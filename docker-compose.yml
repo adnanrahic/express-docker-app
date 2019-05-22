@@ -1,6 +1,6 @@
 version: "3"
 services:
-  app:
+  backend:
     build:
       context: ./
       dockerfile: Dockerfile
@@ -8,7 +8,7 @@ services:
     deploy:
       mode: replicated
       replicas: 6
-      labels: [APP=APP]
+      labels: [APP=BACKEND]
       update_config:
         parallelism: 1
         delay: 10s
@@ -17,3 +17,27 @@ services:
         delay: 5s
     ports:
       - "80:3000"
+  agent:
+    image: sematext/agent:latest
+    deploy:
+      mode: global
+      labels: [APP=AGENT]
+      restart_policy:
+        condition: any
+        delay: 1s
+    environment:
+      - NODE_NAME={{.Node.Hostname}}
+      - CONTAINER_TOKEN=<CONTAINER_TOKEN> 
+      - INFRA_TOKEN=<INFRA_TOKEN>
+      - JOURNAL_DIR=/var/run/st-agent 
+      - LOGGING_REQUEST_TRACKING=false 
+      - LOGGING_WRITE_EVENTS=false 
+      - LOGGING_LEVEL=info 
+      - PKG_ENABLED=false 
+    volumes:
+      - "/var/run:/var/run/"
+      - "/usr/lib:/host/usr/lib"
+      - "/sys/kernel/debug:/sys/kernel/debug"
+      - "/proc:/host/proc:ro"
+      - "/etc:/host/etc:ro"
+      - "/sys:/host/sys:ro"
