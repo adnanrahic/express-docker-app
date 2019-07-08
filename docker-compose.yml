@@ -25,15 +25,21 @@ services:
       restart_policy:
         condition: any
         delay: 1s
+    cap_add: 
+      - SYS_ADMIN 
+    restart: always 
     environment:
-      - NODE_NAME={{.Node.Hostname}}
-      - CONTAINER_TOKEN=<CONTAINER_TOKEN> 
-      - INFRA_TOKEN=<INFRA_TOKEN>
+      - affinity:container!=*sematext-agent* 
+      - CONTAINER_TOKEN=<container_token>
+      - INFRA_TOKEN=<infra_token> 
       - JOURNAL_DIR=/var/run/st-agent 
-      - LOGGING_REQUEST_TRACKING=false 
       - LOGGING_WRITE_EVENTS=false 
+      - LOGGING_REQUEST_TRACKING=false 
       - LOGGING_LEVEL=info 
-      - PKG_ENABLED=false 
+      - NODE_NAME=$HOSTNAME 
+      - CONTAINER_SKIP_BY_IMAGE=sematext
+      - REGION=US
+      - PKG_ENABLED=false
     volumes:
       - "/var/run:/var/run/"
       - "/usr/lib:/host/usr/lib"
