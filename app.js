@@ -2,7 +2,15 @@ const express = require('express')
 const app = express()
 const morgan = require('morgan')
 const logger = require('./logger')
-app.use(morgan('tiny', { stream: logger.stream }))
+const json = require('morgan-json')
+const format = json({
+  method: ':method',
+  url: ':url',
+  status: ':status',
+  contentLength: ':res[content-length]',
+  responseTime: ':response-time'
+})
+app.use(morgan(format, { stream: logger.stream }))
 
 app.get('/api', (req, res, next) => {
   logger.info('Api Works.')

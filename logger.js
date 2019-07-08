@@ -15,7 +15,15 @@ var logger = winston.createLogger({
 })
 logger.stream = {
   write: (message, encoding) => {
-    logger.info(message)
+    const m = JSON.parse(message)
+    const pm = {
+      method: m.method,
+      url: m.url,
+      status: Number(m.status),
+      contentLength: m.contentLength,
+      responseTime: Number(m.responseTime)
+    }
+    logger.info('HTTP LOG', pm)
   }
 }
 module.exports = logger
