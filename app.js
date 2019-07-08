@@ -2,7 +2,7 @@ const express = require('express')
 const app = express()
 const morgan = require('morgan')
 const logger = require('./logger')
-app.use(morgan('combined', { stream: logger.stream }))
+app.use(morgan('tiny', { stream: logger.stream }))
 
 app.get('/api', (req, res, next) => {
   logger.info('Api Works.')
