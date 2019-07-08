@@ -16,4 +16,14 @@ services:
         condition: on-failure
         delay: 5s
     ports:
-      - "80:3000"
+      - "3000:3000"
+  logagent:
+    image: 'sematext/logagent:latest'
+    environment:
+      - LOGS_TOKEN=<logs_token>
+      - LOGS_RECEIVER_URL="https://logsene-receiver.sematext.com"
+    cap_add:
+      - SYS_ADMIN
+    restart: always
+    volumes:
+      - '/var/run/docker.sock:/var/run/docker.sock'
