@@ -27,3 +27,26 @@ services:
     restart: always
     volumes:
       - '/var/run/docker.sock:/var/run/docker.sock'
+  sematext-agent: 
+    image: 'sematext/agent:latest' 
+    environment: 
+      - affinity:container!=*sematext-agent* 
+      - CONTAINER_TOKEN=67779c7b-5066-42be-85b6-193126319f36 
+      - INFRA_TOKEN=6377be8e-8441-46de-85dc-11ee3646c3de 
+      - REGION=US 
+      - JOURNAL_DIR=/var/run/st-agent 
+      - LOGGING_WRITE_EVENTS=false 
+      - LOGGING_REQUEST_TRACKING=false 
+      - LOGGING_LEVEL=info 
+      - NODE_NAME=$HOSTNAME 
+      - CONTAINER_SKIP_BY_IMAGE=sematext 
+    cap_add: 
+      - SYS_ADMIN 
+    restart: always 
+    volumes: 
+      - '/var/run/:/var/run/' 
+      - '/sys/kernel/debug:/sys/kernel/debug' 
+      - '/proc:/host/proc:ro' 
+      - '/etc:/host/etc:ro' 
+      - '/sys:/host/sys:ro' 
+      - '/usr/lib:/host/usr/lib:ro'
