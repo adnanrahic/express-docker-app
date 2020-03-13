@@ -20,18 +20,18 @@ services:
     ports:
       - "80:3000"
   
-  # st-logagent: 
-  #   image: 'sematext/logagent:3.0.21'
-  #   environment: 
-  #     - LOGS_ENABLED_DEFAULT=false
-  #     - LOGS_TOKEN=fbe39e0f-34b9-4ee5-981c-5e96b43599e3 
-  #     - LOGS_RECEIVER_URL=https://logs-token-receiver.apps.test.sematext.com 
-  #     - EVENTS_RECEIVER_URL=https://event-receiver.apps.test.sematext.com
-  #   deploy:
-  #     mode: global
-  #   cap_add: 
-  #     - SYS_ADMIN  
-  #   restart: always 
-  #   volumes: 
-  #     - '/var/run/docker.sock:/var/run/docker.sock' 
+  st-logagent: 
+    image: 'sematext/logagent:3.0.21'
+    environment: 
+      - LOGS_ENABLED_DEFAULT=false
+      - LOGS_TOKEN=fbe39e0f-34b9-4ee5-981c-5e96b43599e3 
+      - LOGS_RECEIVER_URL=https://logs-token-receiver.apps.test.sematext.com 
+      - EVENTS_RECEIVER_URL=https://event-receiver.apps.test.sematext.com
+    deploy:
+      mode: global
+    cap_add: 
+      - SYS_ADMIN  
+    restart: always 
+    volumes: 
+      - '/var/run/docker.sock:/var/run/docker.sock' 
       
