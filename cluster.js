@@ -8,4 +8,3 @@ const childProcess = () => app.listen(port)
 if (cluster.isMaster) masterProcess()
 else childProcess()
 cluster.on('exit', (worker) => cluster.fork())
-
