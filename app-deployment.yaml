@@ -1,4 +1,5 @@
-apiVersion: extensions/v1beta1
+# apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   annotations:
@@ -10,7 +11,10 @@ metadata:
     io.kompose.service: app
   name: app
 spec:
-  replicas: 6
+  selector:
+    matchLabels:
+      io.kompose.service: app
+  replicas: 1
   strategy: {}
   template:
     metadata:
