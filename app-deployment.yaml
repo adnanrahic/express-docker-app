@@ -21,12 +21,14 @@ spec:
       creationTimestamp: null
       labels:
         io.kompose.service: app
+      annotations:
+        "sematext.com/logs-enabled": "false"
     spec:
       containers:
       - env:
         - name: GET_HOSTS_FROM
           value: "dns"
-        # - name: LOGS_ENABLED
+        # - name: LOGSENE_ENABLED
         #   value: "true"
         image: adnanrahic/express-docker-app:test-1
         name: app
