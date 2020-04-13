@@ -1,4 +1,4 @@
 node_modules
 spm*
-.env
+# .env
 sample-github.js

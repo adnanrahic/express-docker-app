@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "node server.js",
     "server": "node server.js",
     "cluster": "node cluster.js"
   },
@@ -13,6 +14,6 @@
   "dependencies": {
     "dotenv": "^8.2.0",
     "express": "^4.16.3",
-    "sematext-agent-express": "^1.0.2"
+    "spm-agent-nodejs": "github:sematext/spm-agent-nodejs#remove-os-monitor"
   }
 }

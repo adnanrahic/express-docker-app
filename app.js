@@ -1,9 +1,5 @@
-// Load env vars
 require('dotenv').config()
-// require stMonitor agent
-const { stMonitor } = require('sematext-agent-express')
-// Start monitoring metrics
-stMonitor.start()
+require('spm-agent-nodejs')
 
 const express = require('express')
 const app = express()
