@@ -23,14 +23,16 @@ spec:
         io.kompose.service: app
       annotations:
         "sematext.com/logs-enabled": "true"
+        "sematext.com/logs-receiver-url": "https://logsene-receiver.sematext.com"
+        "sematext.com/logs-token": "your-token"
     spec:
       containers:
       - env:
         - name: GET_HOSTS_FROM
           value: "dns"
-        # - name: LOGSENE_ENABLED
-        #   value: "true"
-        image: adnanrahic/express-docker-app:pls-frkn-wrk
+        - name: LOGS_ENABLED
+          value: "true"
+        image: adnanrahic/express-docker-app:test
         name: app
         ports:
         - containerPort: 3000
