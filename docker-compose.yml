@@ -7,9 +7,10 @@ services:
     image: adnanrahic/express-docker-app:test
     environment:
       - LOGS_ENABLED=true
-      - LOGS_TOKEN=e4093a01-2600-4bfa-8833-e7a67717f885 
-      - LOGS_RECEIVER_URL=https://logs-token-receiver.apps.test.sematext.com
-      - EVENTS_RECEIVER_URL=https://event-receiver.apps.test.sematext.com
+      - LOGS_RECEIVER_URLS=https://logs-token-receiver.apps.test.sematext.com/a919d8bd-2668-4650-96b8-3560bba55f05, https://logs-token-receiver.apps.test.sematext.com/e4093a01-2600-4bfa-8833-e7a67717f885
+      # - LOGS_TOKEN=e4093a01-2600-4bfa-8833-e7a67717f885 
+      # - LOGS_RECEIVER_URL=https://logs-token-receiver.apps.test.sematext.com
+      # - EVENTS_RECEIVER_URL=https://event-receiver.apps.test.sematext.com
       # - LOGS_DESTINATION=logsene
     deploy:
       mode: replicated
@@ -29,6 +30,7 @@ services:
     environment: 
       - LOGS_ENABLED_DEFAULT=false
       - LA_CONFIG_OVERRIDE=true
+      - LOGAGENT_ARGS=-v
 
       # - LOGS_RECEIVER_URL=https://logs-token-receiver.apps.test.sematext.com 
       # - EVENTS_RECEIVER_URL=https://event-receiver.apps.test.sematext.com
