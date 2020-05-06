@@ -7,6 +7,10 @@ services:
     image: adnanrahic/express-docker-app:test
     environment:
       - LOGS_ENABLED=true
+      - LOGS_TOKEN=e4093a01-2600-4bfa-8833-e7a67717f885 
+      - LOGS_RECEIVER_URL=https://logs-token-receiver.apps.test.sematext.com
+      - EVENTS_RECEIVER_URL=https://event-receiver.apps.test.sematext.com
+      # - LOGS_DESTINATION=logsene
     deploy:
       mode: replicated
       replicas: 1
@@ -21,17 +25,19 @@ services:
       - "80:3000"
   
   st-logagent: 
-    image: 'sematext/logagent:test-no-hostname'
+    image: 'sematext/logagent:test'
     environment: 
       - LOGS_ENABLED_DEFAULT=false
-      - LOGS_TOKEN=8ed25cb2-eded-44a5-8749-f9d14e420dc1 
-      - LOGS_RECEIVER_URL=https://logs-token-receiver.apps.test.sematext.com 
-      - EVENTS_RECEIVER_URL=https://event-receiver.apps.test.sematext.com
-      - INFRA_TOKEN=31a70ed1-932c-4e8b-bcd4-cdb2ceb37ee9
-      - MONITORING_TOKEN=1db11262-9790-4910-8abc-9068c167a25d
-      - SPM_RECEIVER_URL=https://metrics-receiver.apps.test.sematext.com/receiver/v1
-      - SPM_LOG_TO_CONSOLE=true
-      - SPM_LOG_LEVEL=info
+      - LA_CONFIG_OVERRIDE=true
+
+      # - LOGS_RECEIVER_URL=https://logs-token-receiver.apps.test.sematext.com 
+      # - EVENTS_RECEIVER_URL=https://event-receiver.apps.test.sematext.com
+    
+      # - INFRA_TOKEN=31a70ed1-932c-4e8b-bcd4-cdb2ceb37ee9
+      # - MONITORING_TOKEN=1db11262-9790-4910-8abc-9068c167a25d
+      # - SPM_RECEIVER_URL=https://metrics-receiver.apps.test.sematext.com/receiver/v1
+      # - SPM_LOG_TO_CONSOLE=true
+      # - SPM_LOG_LEVEL=info
     deploy:
       mode: global
     cap_add: 
