@@ -9,5 +9,5 @@ app.get('/', async (req, res, next) => {
   res.status(200).send('Hello World!')
   console.log('Hello World!')
 })
-app.listen(4000, () =>
-  console.log('Server is running on port 4000'))
+app.listen(3000, () =>
+  console.log('Server is running on port 3000'))

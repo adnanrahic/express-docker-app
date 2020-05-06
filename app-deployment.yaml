@@ -22,7 +22,7 @@ spec:
       labels:
         io.kompose.service: app
       annotations:
-        "sematext.com/logs-enabled": "false"
+        "sematext.com/logs-enabled": "true"
     spec:
       containers:
       - env:
@@ -30,7 +30,7 @@ spec:
           value: "dns"
         # - name: LOGSENE_ENABLED
         #   value: "true"
-        image: adnanrahic/express-docker-app:test-1
+        image: adnanrahic/express-docker-app:pls-frkn-wrk
         name: app
         ports:
         - containerPort: 3000
