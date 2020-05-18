@@ -13,6 +13,6 @@
   "dependencies": {
     "dotenv": "^8.2.0",
     "express": "^4.16.3",
-    "sematext-agent-express": "^1.0.6"
+    "sematext-agent-express": "^2.0.1"
   }
 }
