@@ -1,13 +1,15 @@
 version: "3"
 services:
-  app:
+  app-1:
     build:
       context: ./
       dockerfile: Dockerfile
-    image: adnanrahic/express-docker-app
+    image: express-docker-app:test-1
+    environment:
+      - LOGS_ENABLED=false
     deploy:
       mode: replicated
-      replicas: 6
+      replicas: 1
       labels: [APP=APP]
       update_config:
         parallelism: 1
@@ -17,3 +19,42 @@ services:
         delay: 5s
     ports:
       - "80:3000"
+
+  app-2:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    image: express-docker-app:test-1
+    environment:
+      - LOGS_ENABLED=true
+    deploy:
+      mode: replicated
+      replicas: 1
+      labels: [APP=APP]
+      update_config:
+        parallelism: 1
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+    ports:
+      - "8080:3000"
+  
+  st-logagent:
+    # build:
+    #   context: ../sematext/logagent-js/
+    #   dockerfile: Dockerfile
+    image: 'sematext/logagent:dev'
+    environment: 
+      - LOGS_ENABLED_DEFAULT=true
+      - LOGS_TOKEN=5905c3e9-889c-4064-bf04-8e140963c880 
+      - LOGS_RECEIVER_URL=https://logs-token-receiver.apps.test.sematext.com 
+      - EVENTS_RECEIVER_URL=https://event-receiver.apps.test.sematext.com 
+    deploy:
+      mode: global
+    cap_add: 
+      - SYS_ADMIN  
+    restart: always 
+    volumes: 
+      - '/var/run/docker.sock:/var/run/docker.sock' 
+      
