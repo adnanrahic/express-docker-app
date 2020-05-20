@@ -1,1 +1,4 @@
 node_modules
+spm*
+.env
+sample-github.js
