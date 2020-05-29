@@ -21,11 +21,11 @@ spec:
       creationTimestamp: null
       labels:
         io.kompose.service: app
-      annotations:
-        "sematext.com/logs-enabled": "true"
-        "sematext.com/logs-receiver-urls": "https://logs-token-receiver.apps.test.sematext.com/your-token, https://logs-token-receiver.apps.test.sematext.com/your-token"
-        # "sematext.com/logs-receiver-url": "https://logsene-receiver.sematext.com"
-        # "sematext.com/logs-token": "your-token"
+      # annotations:
+      #   "sematext.com/logs-enabled": "true"
+      #   "sematext.com/logs-receiver-urls": "https://logs-token-receiver.apps.test.sematext.com/your-token, https://logs-token-receiver.apps.test.sematext.com/your-token"
+      #   "sematext.com/logs-receiver-url": "https://logsene-receiver.sematext.com"
+      #   "sematext.com/logs-token": "your-token"
     spec:
       containers:
       - env:
@@ -33,7 +33,7 @@ spec:
           value: "dns"
         - name: LOGS_ENABLED
           value: "true"
-        image: adnanrahic/express-docker-app:test
+        image: adnanrahic/express-docker-app:test-monit-1
         name: app
         ports:
         - containerPort: 3000
