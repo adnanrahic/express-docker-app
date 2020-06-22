@@ -14,7 +14,7 @@ spec:
   selector:
     matchLabels:
       io.kompose.service: app-two
-  replicas: 6
+  replicas: 1
   strategy: {}
   template:
     metadata:

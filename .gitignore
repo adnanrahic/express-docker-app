@@ -1,2 +1,4 @@
 node_modules
 .env
+logagent-daemonset*.yaml
+logagent.conf

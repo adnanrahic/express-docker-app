@@ -8,19 +8,19 @@ metadata:
     kompose.version: 1.1.0 (36652f6)
   creationTimestamp: null
   labels:
-    io.kompose.service: app
-  name: app
+    io.kompose.service: app-one
+  name: app-one
 spec:
   selector:
     matchLabels:
-      io.kompose.service: app
-  replicas: 6
+      io.kompose.service: app-one
+  replicas: 1
   strategy: {}
   template:
     metadata:
       creationTimestamp: null
       labels:
-        io.kompose.service: app
+        io.kompose.service: app-one
       # annotations:
       #   "sematext.com/logs-enabled": "true"
       #   "sematext.com/logs-receiver-urls": "https://logs-token-receiver.apps.test.sematext.com/your-token, https://logs-token-receiver.apps.test.sematext.com/your-token"
@@ -34,7 +34,7 @@ spec:
         - name: LOGS_ENABLED
           value: "true"
         image: adnanrahic/express-docker-app:test-monit-1
-        name: app
+        name: app-one
         ports:
         - containerPort: 3000
         resources: {}
