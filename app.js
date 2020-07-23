@@ -3,6 +3,7 @@ const app = express()
 
 setInterval(() => {
   console.log('status')
+  console.log('[e383cdcd-9fb2-4d39-9e23-f3c16d1f977c] [c2education] Completed 500 Internal Server Error in 749ms (Views: 0.2ms | ActiveRecord: 481.3ms)')
 }, 1000)
 
 app.get('/', async (req, res, next) => {
