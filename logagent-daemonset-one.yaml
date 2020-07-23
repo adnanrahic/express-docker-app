@@ -1,0 +1,108 @@
+# Cluster Role bindings for Logagent
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: sematext-logagent
+  labels:
+    app: sematext-logagent
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: sematext-logagent
+subjects:
+- kind: ServiceAccount
+  name: sematext-logagent
+  namespace: default
+---
+# Cluster Role for Logagent
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: sematext-logagent
+  labels:
+    app: sematext-logagent
+rules:
+- apiGroups:
+  - ""
+  resources:
+  - events
+  - pods
+  verbs:
+  - list
+  - get
+  - watch
+---
+# Service Account for Logagent
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: sematext-logagent
+  labels:
+    app: sematext-logagent
+---
+# Daemonset
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: st-logagent
+spec:
+  selector:
+   matchLabels:
+     app: st-logagent
+  template:
+    metadata:
+      labels:
+        app: st-logagent
+    spec:
+      nodeSelector: {}
+      serviceAccountName: sematext-logagent
+      hostNetwork: true
+      dnsPolicy: "ClusterFirst"
+      restartPolicy: "Always"
+      containers:
+      - name: sematext-logagent
+        image: sematext/logagent:3.0.40
+        imagePullPolicy: "Always"
+        env:
+          - name: LOG_GLOB
+            value: "/var/log/containers/app-one*.log"
+          - name: LOGAGENT_ARGS
+            value: "--k8sContainerd"
+          - name: LOGS_TOKEN
+            value: "b0e9f481-ebf8-4bfb-a9e2-3ff20227d3d3"
+          - name: LOGS_RECEIVER_URL
+            value: "https://logs-token-receiver.apps.test.sematext.com"
+          - name: EVENTS_RECEIVER_URL
+            value: "https://event-receiver.apps.test.sematext.com"
+        volumeMounts:
+          - mountPath: /var/run/docker.sock
+            name: docker-sock
+          - mountPath: /var/log
+            name: var-log
+          - mountPath: /var/data/kubeletlogs
+            name: kubeletlogs
+          - mountPath: /etc/localtime
+            name: localtime
+#          - mountPath: /etc/logagent
+#            name: patterns
+        securityContext:
+          privileged: true
+      volumes:
+        - name: docker-sock
+          hostPath:
+            path: /var/run/docker.sock
+        - name: var-log
+          hostPath:
+            path: /var/log
+        - name: kubeletlogs
+          hostPath:
+            path: /var/data/kubeletlogs
+        - name: localtime
+          hostPath:
+            path: /etc/localtime
+#        - name: patterns
+#          configMap:
+#            name: sematext-agent-patterns
+#            items:
+#            - key: patterns.yml
+#              path: patterns.yml
