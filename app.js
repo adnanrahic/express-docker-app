@@ -3,9 +3,18 @@ require('dotenv').config()
 // require stMonitor agent
 // const { stHttpLoggerMiddleware } = require('sematext-agent-express')
 
-// var Logsene = require('logsene-js')
-var Logsene = require('../sematext/logsene-js')
-var logger = new Logsene('1c1bcac2-1ec6-491d-846b-465ff8f23074', 'logs', 'https://logs-token-receiver.apps.test.sematext.coms')
+const Logsene = require('../sematext/winston-logsene/lib')
+const { createLogger, format, config } = require('winston')
+
+var logger = createLogger({
+  levels: config.npm.levels,
+  transports: [new Logsene({
+    level: 'debug',
+    format: format.splat(),
+    token: 'token',
+    url: 'https://logs-token-receiver.apps.test.sematext.coms'
+  })]
+})
 
 const express = require('express')
 const app = express()
@@ -15,7 +24,7 @@ const app = express()
 app.get('/', (req, res, next) => {
   console.log('Hello World!')
 
-  logger.log('info', 'text message', { tags: ['a', 'b'], customField: 'custom-field' })
+  logger.info('debug', { message: 'Info Message' })
 
   res.status(200).send('Hello World!')
 })
