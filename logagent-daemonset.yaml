@@ -61,7 +61,7 @@ spec:
       restartPolicy: "Always"
       containers:
       - name: sematext-logagent
-        image: sematext/logagent:dev-amd64
+        image: sematext/logagent:3.0.44
         imagePullPolicy: "Always"
         env:
           - name: LA_CONFIG_OVERRIDE
