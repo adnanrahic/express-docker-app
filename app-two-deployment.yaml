@@ -33,7 +33,7 @@ spec:
           value: "dns"
         - name: LOGS_ENABLED
           value: "true"
-        image: adnanrahic/express-docker-app:test-monit-1
+        image: adnanrahic/express-docker-app:tattle-v2
         name: app-two
         ports:
         - containerPort: 3000
