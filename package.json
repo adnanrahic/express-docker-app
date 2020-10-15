@@ -13,7 +13,9 @@
   "dependencies": {
     "dotenv": "^8.2.0",
     "express": "^4.16.3",
-    "logsene-js": "^1.1.68",
-    "sematext-agent-express": "^2.0.2"
+    "logsene-js": "^1.1.73",
+    "sematext-agent-express": "^2.0.2",
+    "winston": "^3.3.3",
+    "winston-logsene": "^2.0.12"
   }
 }
